@@ -1,0 +1,39 @@
+version: '2'
+services:
+  simpleserver:
+    container_name: simple-server
+    image: simple-express-server
+    expose:
+      - "3000/tcp"
+  simpleweb:
+    container_name: simple-web
+    image: simple-express-client
+    expose:
+      - "3000/tcp"
+    links:
+      - simpleserver:simpleserver
+    environment:
+      - HOST_URL=http://simpleserver:3000/users
+  webproxy:
+    container_name: web-proxy
+    image: nginx
+    links:
+      - simpleweb:simpleweb
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./certs:/opt/certs:ro"
+  squidproxy:
+    container_name: forward-proxy
+    image: jamesyale/squid-sslbump
+    links:
+      - webproxy:webproxy
+    ports:
+      - "9000:3128"
+    volumes:
+#      - "./squid.conf:/etc/squid/squid.ssl.conf" 
+      - "./certs/ca/massl.root-ca.squid.pem:/etc/squid/ssl.pem"
+      - "./certs:/opt/certs:ro"
+

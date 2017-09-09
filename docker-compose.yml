@@ -1,0 +1,38 @@
+version: '2'
+services:
+  simpleweb:
+    container_name: simple-web
+    image: simple-express-client
+    expose:
+      - "3000/tcp"
+    links:
+      - proxyforserver:proxyforserver
+    environment:
+      - HOST_URL=https://proxyforserver:8001/users
+  simpleserver:
+    container_name: simple-server
+    image: simple-express-server
+    expose:
+      - "3000/tcp"
+  proxyforserver:
+    container_name: server-proxy
+    image: nginx
+    links:
+      - simpleserver:simpleserver
+    ports:
+      - "8002:8000"
+      - "8003:8001"
+    volumes:
+      - "./nginx-server.conf:/etc/nginx/nginx.conf:ro"
+      - "./certs:/opt/certs:ro"
+  webproxy:
+    container_name: web-proxy
+    image: nginx
+    links:
+      - simpleweb:simpleweb
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./certs:/opt/certs:ro"
