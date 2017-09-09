@@ -18,7 +18,7 @@ else
       -sha256 \
       -key tmp_$$.intermediate.key.pem \
       -out tmp_$$.intermediate.csr.pem \
-      -subj "/C=AU/ST=Victoria/L=Melbourne/O=Orchestrated Systems/CN=Orchestrated Intermediated CA"
+      -subj "/C=AU/ST=Victoria/L=Melbourne/O=endwall Systems/CN=endwall Intermediated CA"
 
     # Sign the cert
     openssl x509 \

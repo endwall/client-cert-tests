@@ -22,7 +22,7 @@ else
       -key $OUTPUT_DIR/tmp_$$.root-ca.key.pem \
       -days 1024 \
       -out $OUTPUT_DIR/tmp_$$.root-ca.crt.pem \
-      -subj "/C=AU/ST=Victoria/L=Melbourne/O=Orchestrated Systems/CN=orchestrated.io"
+      -subj "/C=AU/ST=Victoria/L=Melbourne/O=endwall Systems/CN=endwall.io"
 
 
     mv $OUTPUT_DIR/tmp_$$.root-ca.key.pem $OUTPUT_DIR/massl.root-ca.key.pem

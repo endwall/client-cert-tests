@@ -19,7 +19,7 @@ else
       -sha256 \
       -key tmp_$$.client.key.pem \
       -out tmp_$$.client.csr.pem \
-      -subj "/C=AU/ST=Victoria/L=Melbourne/O=Orchestrated Systems/CN=Orchestrated client cert"
+      -subj "/C=AU/ST=Victoria/L=Melbourne/O=endwall Systems/CN=endwall client cert"
 
     # Sign the cert
     openssl x509 \

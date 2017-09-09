@@ -17,7 +17,7 @@ set -e
 
 PROJECT_NAME=$1
 DEPLOY_ENV=$2
-FQDN=elk.${DEPLOY_ENV}.${PROJECT_NAME}.orchestrated.io
+FQDN=elk.${DEPLOY_ENV}.${PROJECT_NAME}.endwall.io
 
 trap cleanup EXIT
 function cleanup {
@@ -52,7 +52,7 @@ openssl req \
   -key tmp_$$.root-ca.key.pem \
   -days 1024 \
   -out tmp_$$.root-ca.crt.pem \
-  -subj "/C=AU/ST=Victoria/L=Melbourne/O=Orchestrated Systems/CN=orchestrated.io"
+  -subj "/C=AU/ST=Victoria/L=Melbourne/O=endwall Systems/CN=endwall.io"
 
 openssl genrsa \
   -out tmp_$$.key.pem \
@@ -61,7 +61,7 @@ openssl genrsa \
 openssl req -new \
   -key tmp_$$.key.pem \
   -out tmp_$$.csr.pem \
-  -subj "/C=AU/ST=Victoria/L=Melbourne/O=Orchestrated Systems/CN=${FQDN}"
+  -subj "/C=AU/ST=Victoria/L=Melbourne/O=endwall Systems/CN=${FQDN}"
 
 openssl x509 \
   -req -in tmp_$$.csr.pem \
